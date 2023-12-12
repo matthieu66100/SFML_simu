@@ -30,7 +30,7 @@ while [[ $# -gt 0 ]]; do
 			exit;;
 		-r|--rm_build)
 			echo -e "${vert} Nettoyage du dossier ./build... ${reset}"
-			rm -rf ./build
+			rm -rf ./build/bin/*
 			echo -e "${vert} Nettoyage Terminée ${reset}"
 			exit;;
 		-h|--help)

@@ -1,6 +1,6 @@
 
 # Variables
-PROJECT_NAME=SFML_testProject
+PROJECT_NAME=CMakeSFMLProject
 
 ## Couleurs
 rouge='\033[0;31m'
@@ -22,8 +22,11 @@ while [[ $# -gt 0 ]]; do
 		-c|--compile)
 			echo -e "${vert} Compilation du projet... ${reset}"
 			cmake -S . -B build -DCMAKE_BUILD_TYPE=Realease &&
-			cmake --build build --config Release
+			cmake --build build --config Release &&
 			echo -e "${vert} Compilation Terminée ${reset}"
+
+			echo -e "${vert} Lancement de l'application ${reset}"
+			./build/bin/${PROJECT_NAME}
 			exit;;
 		-r|--rm_build)
 			echo -e "${vert} Nettoyage du dossier ./build... ${reset}"

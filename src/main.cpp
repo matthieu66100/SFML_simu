@@ -1,21 +1,26 @@
-#include <SFML/Graphics.hpp>
-
-int main()
+#include<SFML/Graphics.hpp>
+int main(int argc, char const *argv[])
 {
-    auto window = sf::RenderWindow{ { 1920u, 1080u }, "CMake SFML Project" };
-    window.setFramerateLimit(144);
+   sf::RenderWindow window(sf::VideoMode(640,800),"TEST");
+   sf::CircleShape shape;
 
-    while (window.isOpen())
-    {
-        for (auto event = sf::Event{}; window.pollEvent(event);)
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
+   shape.setRadius(40.f);
+   shape.setPosition(100.f, 100.f);
+   shape.setFillColor(sf::Color::Cyan);
 
-        window.clear();
-        window.display();
-    }
+   while(window.isOpen())
+   {
+      sf::Event event;
+      while(window.pollEvent(event))
+      {
+         if(event.type==sf::Event::Closed)
+            window.close();
+      }
+      window.clear();
+      window.draw(shape);
+      window.display();
+   }
+
+
+   return 0;
 }

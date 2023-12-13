@@ -4,59 +4,88 @@
 using namespace std;
 using namespace sf;
 
-
-int init_planets(RenderWindow window, CircleShape sol, CircleShape terra, CircleShape venus, CircleShape mars){
-
-
-    return 1;
-}
-
-int main(int argc, char const *argv[])
+class CelestialBody
 {
-    // Création 
-    RenderWindow window(VideoMode(1500, 1000), "Simulation");
-    // Define Planets
-    CircleShape sol;
-    CircleShape terra;
-    CircleShape venus;
-    CircleShape mars;
+    private:
+        CircleShape shape;
+        Vector2f position;
+        Vector2f velocity;
 
-///___________________________________________________________///
-    int windowCX = window.getSize().x/2;
-    int windowCY = window.getSize().y/2;
-
-    sol.setRadius(100.f);
-    sol.setPosition(float(windowCX) - sol.getRadius()/2, float(windowCY) - sol.getRadius()/2);
-    sol.setFillColor(Color::Yellow);
-
-    terra.setRadius(40.f);
-    terra.setPosition(30.f,30.f);
-    terra.setFillColor(Color::Green);
-
-    venus.setRadius(40.f);
-    venus.setPosition(30.f,30.f);
-    venus.setFillColor(Color::Green);
-
-    mars.setRadius(40.f);
-    mars.setPosition(30.f,30.f);
-    mars.setFillColor(Color::Green);
-///___________________________________________________________///
-
-
-    while (window.isOpen())
+    public:
+    CelestialBody(float radius, Vector2f position, Vector2f velocity, Color color)
     {
-        Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == Event::Closed)
-                window.close();
-        }
-        window.clear();
-        window.draw(sol);
-        window.draw(terra);
-
-        window.display();
+        shape.setRadius(radius);
+        shape.setFillColor(color);
+        shape.setPosition(position);
+        this->position;
+        this->velocity;
     }
+    void update(float deltaTime){
+        position += velocity * deltaTime;
+    }
+    void draw(RenderWindow& window){
+        window.draw(shape);
+    }
+};
+
+class SolarSystemSim
+    {
+    private:
+        RenderWindow window;
+        int windowWidth;
+        int windowHeight;
+
+        vector<CelestialBody> celestialBodies; // Liste des corps celestes
+    public:
+        // Creator
+        SolarSystemSim(int width, int height){
+            windowWidth = width;
+            windowHeight = height;
+            window.create(VideoMode(windowWidth, windowHeight), "Solar System Simulator");
+        }
+
+        // Permet d'ajouter au vecteur les corps celestes qui sont appelés
+        void addCelestialBody(CelestialBody body){
+            celestialBodies.push_back(body);
+        }
+        
+        void runSimulation() {
+            Clock clock;
+    
+            while (window.isOpen()) {
+                Event event;
+                while (window.pollEvent(event)) {
+                    if (event.type == Event::Closed)
+                        window.close();
+                }
+    
+                float deltaTime = clock.restart().asSeconds();
+    
+                window.clear();
+    
+                for (auto& body : celestialBodies) {
+                    body.update(deltaTime);
+                    body.draw(window);
+                }
+    
+                window.display();
+            }
+        }
+
+};
+
+int main(){
+    SolarSystemSim simulator(1500, 1000);
+
+    CelestialBody sun(100.f, Vector2f(1500/2,1000/2), Vector2f(0,0), Color::Yellow);
+    CelestialBody earth(10.f, Vector2f(400,300), Vector2f(0,0), Color::Blue);
+    CelestialBody mars(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+
+    simulator.addCelestialBody(sun);
+    simulator.addCelestialBody(earth);
+    simulator.addCelestialBody(mars);
+
+    simulator.runSimulation();
 
     return 0;
 }

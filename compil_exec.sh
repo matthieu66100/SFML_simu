@@ -1,4 +1,3 @@
-
 # Variables
 PROJECT_NAME=CMakeSFMLProject
 

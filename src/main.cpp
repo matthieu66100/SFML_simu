@@ -4,6 +4,30 @@
 using namespace std;
 using namespace sf;
 
+struct size{
+    double sun      = 1391400;
+    double earth    = 12756;
+    double mars     = 6792;
+    double venus    = 12104;
+    double uranus   = 51118;
+    double jupiter  = 142984;
+    double mercure  = 4879;
+    double saturne  = 120536;
+    double neptune  = 49528;
+
+};
+struct distance_from_sun{
+    double earth    = 149600000;
+    double mars     = 227900000;
+    double venus    = 108200000;
+    double uranus   = 2872500000;
+    double jupiter  = 778600000;
+    double mercure  = 57900000;
+    double saturne  = 1433500000;
+    double neptune  = 4495100000;
+
+};
+
 class CelestialBody
 {
     private:

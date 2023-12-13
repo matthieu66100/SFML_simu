@@ -16,6 +16,8 @@ class CelestialBody
     {
         shape.setRadius(radius);
         shape.setFillColor(color);
+        position.x = position.x/2 - radius;
+        position.y = position.y/2 - radius;
         shape.setPosition(position);
         this->position;
         this->velocity;
@@ -75,11 +77,19 @@ class SolarSystemSim
 };
 
 int main(){
+
+
     SolarSystemSim simulator(1500, 1000);
 
-    CelestialBody sun(100.f, Vector2f(1500/2,1000/2), Vector2f(0,0), Color::Yellow);
+    CelestialBody sun(100.f, Vector2f(1500,1000), Vector2f(0,0), Color::Yellow);
     CelestialBody earth(10.f, Vector2f(400,300), Vector2f(0,0), Color::Blue);
     CelestialBody mars(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody venus(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody uranus(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody jupiter(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody mercure(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody saturne(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody neptune(5.f, Vector2f(800,300), Vector2f(0,0), Color::Red);
 
     simulator.addCelestialBody(sun);
     simulator.addCelestialBody(earth);

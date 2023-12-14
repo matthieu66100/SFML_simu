@@ -4,29 +4,38 @@
 using namespace std;
 using namespace sf;
 
-
-unordered_map<string, float> planetSize
-{
+unordered_map<string, float> planetSize{
     {"sun"      ,1391400/10000},
-    {"jupiter"  ,142984/1000},
-    {"saturne"  ,120536/1000},
+    {"jupiter"  ,142984/10000},
+    {"saturne"  ,120536/10000},
     {"uranus"   ,51118/1000},
     {"neptune"  ,49528/1000},
     {"earth"    ,12756/1000},
     {"venus"    ,12104/1000},
     {"mars"     ,6792/1000},
-    {"mercure"  ,487/10009}
+    {"mercure"  ,487/100}
 };
 unordered_map<string, int> planetDistance{
-    {"neptune",   4495100000},
-    {"uranus",    2872500000},
-    {"saturne",   1433500000},
-    {"jupiter",   778600000},
-    {"mars",      227900000},
-    {"earth",     149600000},
-    {"venus",     108200000},
-    {"mercure",   57900000}
+    {"neptune",   4495100000/500000},
+    {"uranus",    2872500000/500000},
+    {"saturne",   1433500000/500000},
+    {"jupiter",   778600000/500000},
+    {"mars",      227900000/500000},
+    {"earth",     149600000/500000},
+    {"venus",     108200000/500000},
+    {"mercure",   57900000/500000}
 };
+unordered_map<string, int> orbitDistance{
+{"neptune",170},
+{"uranus",225},
+{"saturne",300},
+{"jupiter",400},
+{"mars",500},
+{"earth",600},
+{"venus",700},
+{"mercure",900},
+};
+
 
 class CelestialBody
 {
@@ -64,9 +73,9 @@ class SolarSystemSim
         vector<CelestialBody> celestialBodies; // Liste des corps celestes
     public:
         // Creator
-        SolarSystemSim(int width, int height){
-            windowWidth = width;
-            windowHeight = height;
+        SolarSystemSim(int s_width, int s_height){
+            windowWidth = s_width;
+            windowHeight = s_height;
             window.create(VideoMode(windowWidth, windowHeight), "Solar System Simulator");
         }
 
@@ -97,28 +106,33 @@ class SolarSystemSim
                 window.display();
             }
         }
-
 };
 
 int main(){
+    int s_width = 2000;
+    int s_height = 1000;
+    SolarSystemSim simulator(s_width, s_height);
 
-
-    SolarSystemSim simulator(1500, 1000);
-
-    CelestialBody sun(planetSize["sun"], Vector2f(1500/2,1000/2), Vector2f(0,0), Color::Yellow);
-    CelestialBody earth(planetSize["earth"], Vector2f(400,300), Vector2f(0,0), Color::Blue);
-    CelestialBody mars(planetSize["mars"], Vector2f(800,300), Vector2f(0,0), Color::Red);
-    CelestialBody venus(planetSize["venus"], Vector2f(800,300), Vector2f(0,0), Color::Red);
-    CelestialBody uranus(planetSize["uranus"], Vector2f(800,300), Vector2f(0,0), Color::Red);
-    CelestialBody jupiter(planetSize["jupiter"], Vector2f(800,300), Vector2f(0,0), Color::Red);
-    CelestialBody mercure(planetSize["mercure"], Vector2f(800,300), Vector2f(0,0), Color::Red);
-    CelestialBody saturne(planetSize["saturne"], Vector2f(800,300), Vector2f(0,0), Color::Red);
-    CelestialBody neptune(planetSize["neptune"], Vector2f(800,300), Vector2f(0,0), Color::Red);
+    CelestialBody sun(planetSize["sun"],        Vector2f(s_width/2,1000/2), Vector2f(0,0), Color::Yellow);
+    CelestialBody mercure(planetSize["mercure"],Vector2f(s_width/2 - 170,1000/2), Vector2f(0,0), Color::Yellow);
+    CelestialBody venus(planetSize["venus"],    Vector2f(s_width/2 - 225,1000/2), Vector2f(0,0), Color::Magenta);
+    CelestialBody earth(planetSize["earth"],    Vector2f(s_width/2 - 300,1000/2), Vector2f(0,0), Color::Blue);
+    CelestialBody mars(planetSize["mars"],      Vector2f(s_width/2 - 400,1000/2), Vector2f(0,0), Color::Red);
+    CelestialBody jupiter(planetSize["jupiter"],Vector2f(s_width/2 - 500,1000/2), Vector2f(0,0), Color::White);
+    CelestialBody saturne(planetSize["saturne"],Vector2f(s_width/2 - 600,1000/2), Vector2f(0,0), Color::White);
+    CelestialBody uranus(planetSize["uranus"],  Vector2f(s_width/2 - 700,1000/2), Vector2f(0,0), Color::Blue);
+    CelestialBody neptune(planetSize["neptune"],Vector2f(s_width/2 - 900,1000/2), Vector2f(0,0), Color::Blue);
 
     simulator.addCelestialBody(sun);
+    simulator.addCelestialBody(mercure);
+    simulator.addCelestialBody(venus);
     simulator.addCelestialBody(earth);
     simulator.addCelestialBody(mars);
-
+    simulator.addCelestialBody(jupiter);
+    simulator.addCelestialBody(saturne);
+    simulator.addCelestialBody(uranus);
+    simulator.addCelestialBody(neptune);
+    
     simulator.runSimulation();
 
     return 0;

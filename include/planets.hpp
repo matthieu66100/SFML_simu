@@ -1,22 +1,28 @@
 #include <SFML/Graphics.hpp>
-
-using namespace std;
 using namespace sf;
 
-class PlanetsShapes : public Shape
+class CelestialBody
 {
-public:
-    explicit PlanetsShapes(float radius, Vector2f coord, Color color ){
-        radius;
-        coord;
-        color;
+    private:
+        CircleShape shape;
+        Vector2f position;
+        Vector2f velocity;
+
+    public:
+    CelestialBody(float radius, Vector2f position, Vector2f velocity, Color color)
+    {
+        shape.setRadius(radius);
+        shape.setFillColor(color);
+        position.x = position.x - radius;
+        position.y = position.y - radius;
+        shape.setPosition(position);
+        this->position;
+        this->velocity;
     }
-
-
-
-
-
-
-    ~PlanetsShapes();
+    void update(float deltaTime){
+        position += velocity * deltaTime;
+    }
+    void draw(RenderWindow& window){
+        window.draw(shape);
+    }
 };
-
